@@ -59,8 +59,6 @@ func GetAllForms(ctx *gin.Context) {
 	var results []Form
 	curs.All(context.TODO(), &results)
 
-	// jsonData, err := json.MarshalIndent(results, "", "  ")
-
 	for _, result := range results {
 		curs.Decode(&result)
 	}

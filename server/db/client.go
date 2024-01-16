@@ -3,22 +3,32 @@ package db
 import (
 	"context"
 	"os"
+	"time"
 
 	"github.com/joho/godotenv"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type DBCollections struct {
-	User      string
-	Form      string
-	FormaData string
+	User     string
+	Form     string
+	FormData string
+}
+
+type FormData struct {
+	ID        primitive.ObjectID `bson:"_id"`
+	FormId    primitive.ObjectID `bson:"formId"`
+	Data      primitive.M        `bson:"data"`
+	CreatedAt time.Time          `bson:"created_at"`
+	UpdatedAt time.Time          `bson:"updated_at"`
 }
 
 var Collections = DBCollections{
-	User:      "User",
-	Form:      "Form",
-	FormaData: "FormData",
+	User:     "User",
+	Form:     "Form",
+	FormData: "FormData",
 }
 
 func InitDb() *mongo.Database {

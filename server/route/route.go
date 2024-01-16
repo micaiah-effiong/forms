@@ -66,7 +66,88 @@ func GetAllForms(ctx *gin.Context) {
 	ctx.IndentedJSON(http.StatusOK, results)
 }
 
+type AddFormDataDto struct {
+	FormId string      `json:"formId"`
+	Data   primitive.M `json:"data"`
+}
+
 // add to form
+func CreateFormData(ctx *gin.Context) {
+
+	var addFromDataDto AddFormDataDto
+	if err := ctx.BindJSON(&addFromDataDto); err != nil {
+		return
+	}
+
+	// formId, err := primitive.ObjectIDFromHex(ctx.Param("id"))
+	formId, err := primitive.ObjectIDFromHex(addFromDataDto.FormId)
+
+	if err != nil {
+		println("Error converting formId to objectId")
+		return
+	}
+
+	// check from
+	cursor := db.InitDb().Collection(db.Collections.Form).FindOne(context.TODO(), bson.M{"_id": formId})
+
+	var formJsonData bson.M
+	if err := cursor.Decode(&formJsonData); err != nil {
+		return
+	}
+
+	if formJsonData == nil {
+		println("Cannot added data because form does not exist")
+		return
+	}
+
+	// add form data
+	var formData db.FormData = db.FormData{
+		ID:        primitive.NewObjectID(),
+		FormId:    formId,
+		Data:      addFromDataDto.Data,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}
+
+	result, err := db.InitDb().Collection(db.Collections.FormData).InsertOne(context.TODO(), formData)
+
+	if err != nil {
+		println("Error inserting form data")
+		return
+	}
+
+	ctx.IndentedJSON(http.StatusCreated, result)
+}
+
+// get a forms data
+func GetFromData(ctx *gin.Context) {
+	// form id
+	formId, err := primitive.ObjectIDFromHex(ctx.Param("id"))
+	if err != nil {
+		println("from not found")
+		return
+	}
+
+	filter := bson.M{"formId": formId}
+	cursor, err := db.InitDb().Collection(db.Collections.FormData).Find(context.TODO(), filter)
+
+	if err != nil {
+		println("Error geting from data")
+		return
+	}
+
+	var allResults []db.FormData
+	if err := cursor.All(context.TODO(), &allResults); err != nil {
+		println("error decoding value")
+		return
+	}
+
+	for _, result := range allResults {
+		cursor.Decode(&result)
+	}
+
+	ctx.IndentedJSON(http.StatusOK, allResults)
+}
 
 // get a form
 func GetForm(ctx *gin.Context) {

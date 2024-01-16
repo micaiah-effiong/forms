@@ -75,10 +75,11 @@ func main() {
 	router.GET("/albums/:id", getAnAlbum)
 
 	// forms
-	router.Group("/forms")
 	router.GET("/forms", route.GetAllForms)
 	router.POST("/forms", route.CreateForm)
+	router.GET("/forms/:id/data", route.GetFromData)
 	router.GET("/forms/:id", route.GetForm)
+	router.POST("/forms/add", route.CreateFormData)
 	router.DELETE("/forms/:id", route.DeleteForm)
 
 	router.Run("localhost:8000")

@@ -3,8 +3,6 @@ package route
 import (
 	"api/form-api/db"
 	"context"
-	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -63,11 +61,6 @@ func GetAllForms(ctx *gin.Context) {
 
 	for _, result := range results {
 		curs.Decode(&result)
-	}
-
-	d, err := json.Marshal(results)
-	if d != nil {
-		fmt.Printf("%s", d)
 	}
 
 	ctx.IndentedJSON(http.StatusOK, results)

@@ -3,6 +3,8 @@ package route
 import (
 	"api/form-api/db"
 	"context"
+	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -13,11 +15,11 @@ import (
 )
 
 type Form struct {
-	ID        primitive.ObjectID `bson:"_id"`
-	Name      string             `bson:"name"`
-	Slug      string             `bson:"slug"`
-	CreatedAt time.Time          `bson:"created_at"`
-	UpdatedAt time.Time          `bson:"updated_at"`
+	ID        primitive.ObjectID `bson:"_id" json:"_id"`
+	Name      string             `bson:"name" json:"name"`
+	Slug      string             `bson:"slug" json:"slug"`
+	CreatedAt time.Time          `bson:"created_at" json:"created_at"`
+	UpdatedAt time.Time          `bson:"updated_at" json:"updated_at"`
 }
 
 type CreateFormDto struct {
@@ -61,6 +63,11 @@ func GetAllForms(ctx *gin.Context) {
 
 	for _, result := range results {
 		curs.Decode(&result)
+	}
+
+	d, err := json.Marshal(results)
+	if d != nil {
+		fmt.Printf("%s", d)
 	}
 
 	ctx.IndentedJSON(http.StatusOK, results)

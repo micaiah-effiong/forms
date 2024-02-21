@@ -18,11 +18,11 @@ type DBCollections struct {
 }
 
 type FormData struct {
-	ID        primitive.ObjectID `bson:"_id"`
-	FormId    primitive.ObjectID `bson:"formId"`
-	Data      primitive.M        `bson:"data"`
-	CreatedAt time.Time          `bson:"created_at"`
-	UpdatedAt time.Time          `bson:"updated_at"`
+	ID        primitive.ObjectID `bson:"_id" json:"_id"`
+	FormId    primitive.ObjectID `bson:"formId" json:"formId"`
+	Data      primitive.M        `bson:"data" json:"data"`
+	CreatedAt time.Time          `bson:"created_at" json:"created_at"`
+	UpdatedAt time.Time          `bson:"updated_at" json:"updated_at"`
 }
 
 var Collections = DBCollections{

@@ -78,8 +78,9 @@ func main() {
 	router.GET("/forms", route.GetAllForms)
 	router.POST("/forms", route.CreateForm)
 	router.GET("/forms/:id/data", route.GetFromData)
+	router.POST("/forms/:id/data", route.CreateFormData)
 	router.GET("/forms/:id", route.GetForm)
-	router.POST("/forms/add", route.CreateFormData)
+	// router.POST("/forms/add", route.CreateFormData)
 	router.DELETE("/forms/:id", route.DeleteForm)
 
 	router.Run("localhost:8000")

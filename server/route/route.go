@@ -13,11 +13,11 @@ import (
 )
 
 type Form struct {
-	ID        primitive.ObjectID `bson:"_id"`
-	Name      string             `bson:"name"`
-	Slug      string             `bson:"slug"`
-	CreatedAt time.Time          `bson:"created_at"`
-	UpdatedAt time.Time          `bson:"updated_at"`
+	ID        primitive.ObjectID `bson:"_id" json:"_id"`
+	Name      string             `bson:"name" json:"name"`
+	Slug      string             `bson:"slug" json:"slug"`
+	CreatedAt time.Time          `bson:"created_at" json:"created_at"`
+	UpdatedAt time.Time          `bson:"updated_at" json:"updated_at"`
 }
 
 type CreateFormDto struct {

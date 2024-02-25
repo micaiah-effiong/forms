@@ -13,7 +13,7 @@ import (
 )
 
 type Form struct {
-	ID        primitive.ObjectID `bson:"_id" json:"_id"`
+	ID        primitive.ObjectID `bson:"_id" json:"id"`
 	Name      string             `bson:"name" json:"name"`
 	Slug      string             `bson:"slug" json:"slug"`
 	CreatedAt time.Time          `bson:"created_at" json:"created_at"`
@@ -66,21 +66,18 @@ func GetAllForms(ctx *gin.Context) {
 	ctx.IndentedJSON(http.StatusOK, results)
 }
 
-type AddFormDataDto struct {
-	FormId string      `json:"formId"`
-	Data   primitive.M `json:"data"`
-}
+type AddFormDataDto map[string]interface{}
 
 // add to form
 func CreateFormData(ctx *gin.Context) {
 
-	var addFromDataDto AddFormDataDto
+	var addFromDataDto primitive.M
 	if err := ctx.BindJSON(&addFromDataDto); err != nil {
 		return
 	}
 
-	// formId, err := primitive.ObjectIDFromHex(ctx.Param("id"))
-	formId, err := primitive.ObjectIDFromHex(addFromDataDto.FormId)
+	formId, err := primitive.ObjectIDFromHex(ctx.Param("id"))
+	// formId, err := primitive.ObjectIDFromHex(addFromDataDto.FormId)
 
 	if err != nil {
 		println("Error converting formId to objectId")
@@ -104,7 +101,7 @@ func CreateFormData(ctx *gin.Context) {
 	var formData db.FormData = db.FormData{
 		ID:        primitive.NewObjectID(),
 		FormId:    formId,
-		Data:      addFromDataDto.Data,
+		Data:      addFromDataDto, //.(primitive.M),
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}

@@ -1,0 +1,208 @@
+openapi: 3.1.0
+info:
+  title: Forms API - OpenAPI 3.1
+  description: |-
+    Form API documentation
+  version: 1.0.11
+  # termsOfService: http://swagger.io/terms/
+#   contact:
+#     email: someone@mail.com
+#   license:
+#     name: Apache 2.0
+#     url: http://www.apache.org/licenses/LICENSE-2.0.html
+# externalDocs:
+#   description: Find out more about Swagger
+#   url: http://swagger.io
+# servers:
+#   - url: https://petstore3.swagger.io/api/v3
+# tags:
+#   - name: pet
+#     description: Everything about your Pets
+#     externalDocs:
+#       description: Find out more
+#       url: http://swagger.io
+#   - name: store
+#     description: Access to Petstore orders
+#     externalDocs:
+#       description: Find out more about our store
+#       url: http://swagger.io
+#   - name: user
+#     description: Operations about user
+paths:
+  /forms:
+    get:
+      description: "Get all forms"
+      tags:
+        - Form
+      responses:
+        "200":
+          description: "Successfully get all forms"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Form"
+
+    post:
+      description: "Create a new form"
+      tags:
+        - Form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        "200":
+          description: "Successfully create a new form"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Form"
+
+  /forms/{id}:
+    get:
+      description: "Get a form"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Form
+      responses:
+        "200":
+          description: "Successfully get a form"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Form"
+
+    delete:
+      description: "Delete a form"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Form
+      responses:
+        "200":
+          description: "Successfully delete a form"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Form"
+
+  /forms/{id}/data:
+    get:
+      description: "Get a form data"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Form
+      responses:
+        "200":
+          description: "Successfully get a form data"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FormData"
+
+    post:
+      description: "Add a form data"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: "Successfully add a form data"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FormData"
+
+components:
+  schemas:
+    Form:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    FormData:
+      type: object
+      properties:
+        id:
+          type: string
+        form_id:
+          type: string
+        data:
+          type: object
+        created_at:
+          type: string
+        updated_at:
+          type: string
+  # requestBodies:
+  #   Pet:
+  #     description: Pet object that needs to be added to the store
+  #     content:
+  #       application/json:
+  #         schema:
+  #           $ref: '#/components/schemas/Pet'
+  #       application/xml:
+  #         schema:
+  #           $ref: '#/components/schemas/Pet'
+  #   UserArray:
+  #     description: List of user object
+  #     content:
+  #       application/json:
+  #         schema:
+  #           type: array
+  #           items:
+  #             $ref: '#/components/schemas/User'
+  # securitySchemes:
+  #   petstore_auth:
+  #     type: oauth2
+  #     flows:
+  #       implicit:
+  #         authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+  #         scopes:
+  #           write:pets: modify pets in your account
+  #           read:pets: read your pets
+  #   api_key:
+  #     type: apiKey
+  #     name: api_key
+  #     in: header

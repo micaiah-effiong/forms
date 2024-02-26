@@ -43,7 +43,7 @@ export class FormService {
    * @returns Form Successfully get a form
    * @throws ApiError
    */
-  public static getForms1(
+  public static getFormById(
     id: string,
   ): CancelablePromise<Form> {
     return __request(OpenAPI, {

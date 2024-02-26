@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <title>Main</title>
+</head>
+
+<body>
+  <main class="flex gap-3 flex-col h-screen w-full bg-black p-4 text-white text-lg">
+    <h1>Form endpoints for developers</h1>
+
+    <div>
+      <p>Collect submissions, receive emails and automate your form.</p>
+      <code>
+        &lt;<span class="text-purple-500">from</span>
+        <span class="text-cyan-500">action</span>="<span class="text-green-500">{"{form-endpoint}"}</span>" <span
+          class="text-cyan-500">method</span>="<span class="text-green-500">POST</span>"&gt;
+        <br />
+        &lt;<span class="text-purple-500">input</span>
+        <span class="text-cyan-500">type</span>="<span class="text-green-500">text</span>" <span
+          class="text-cyan-500">name</span>="<span class="text-green-500">name</span>" /&gt;
+        <br />
+        &lt;<span class="text-purple-500">input</span>
+        <span class="text-cyan-500">type</span>="<span class="text-green-500">email</span>" <span
+          class="text-cyan-500">name</span>="<span class="text-green-500">email</span>" /&gt;
+        <br />
+        &lt;<span class="text-purple-500">button</span>
+        <span class="text-cyan-500">type</span>="<span class="text-green-500">submit</span>"&gt;Send &lt;/<span
+          class="text-purple-500">button</span>&gt;
+      </code>
+    </div>
+
+    <div>
+      <a href="/forms/" class="p-3 bg-green-400 text-black font-bold rounded-md">
+        Generate endpoint for free
+      </a>
+    </div>
+  </main>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
